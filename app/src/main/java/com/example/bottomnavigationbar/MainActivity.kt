@@ -48,8 +48,6 @@ class MainActivity : ComponentActivity() {
 }
 
 /*
-*   The routes could be implemented using a sealed class
-*
 *   Navigation could be controlled by NavGraphBuilder that would receive
 *   the current navController as a module. Later, in case the app expands,
 *   it would be possible to add new modules
@@ -91,10 +89,14 @@ fun MainScreen(navController: NavHostController) {
         }
     ) {
         paddingValues ->
-        NavHost(navController = navController, startDestination = "home", Modifier.padding(paddingValues)) {
-            composable("home") { HomeScreen()}
-            composable("mail") { MailScreen()}
-            composable("call") { CallScreen()}
+        NavHost(
+            navController = navController,
+            startDestination = NavDestinations.Home.name,
+            Modifier.padding(paddingValues)
+        ) {
+            composable(NavDestinations.Home.name) { HomeScreen()}
+            composable(NavDestinations.Mail.name) { MailScreen()}
+            composable(NavDestinations.Call.name) { CallScreen()}
         }
 
     }
@@ -109,17 +111,17 @@ data class BottomNavItem(
 val bottomNavItems = listOf(
     BottomNavItem(
         name = "Home",
-        route = "home",
+        route = NavDestinations.Home.name,
         icon = Icons.Filled.Home
     ),
     BottomNavItem(
         name = "Email",
-        route = "mail",
+        route = NavDestinations.Mail.name,
         icon = Icons.Filled.Email
     ),
     BottomNavItem(
         name = "Call",
-        route = "call",
+        route = NavDestinations.Call.name,
         icon = Icons.Filled.Call
     )
 )
